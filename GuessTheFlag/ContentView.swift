@@ -33,7 +33,7 @@ struct FlagImage: View {
       .resizable()
       .aspectRatio(contentMode: .fit)
       .shadow(radius: 6)
-      .frame(width: 400, height: 150)
+      .frame(width: 280, height: 120)
   }
 }
 
@@ -49,10 +49,9 @@ struct ContentView: View {
   var body: some View {
     ZStack {
       RadialGradient(stops: [
-        .init(color: Color(red: 0.76, green: 0.1, blue: 0.1), location: 0.2),
-        .init(color: Color(red: 0.2, green: 0.2, blue: 0.2), location: 0.2),
-      ], center: .top, startRadius: 200, endRadius: 400)
-        .ignoresSafeArea()
+        .init(color: Color(red: 0.66, green: 0.1, blue: 0.1), location: 0.2),
+        .init(color: Color(red: 0.2, green: 0.2, blue: 0.2), location: 0.4),
+      ], center: .top, startRadius: 200, endRadius: 900)
       if correctAnswer >= 0 {
         VStack {
           Text("Guess the Flag").titleText()
