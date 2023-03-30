@@ -12,11 +12,11 @@ struct Country {
   var code: String
 }
 
-struct TitleModifier : ViewModifier {
+struct TitleModifier: ViewModifier {
   func body(content: Content) -> some View {
-          content
-            .font(.largeTitle.weight(.bold))
-      }
+    content
+      .font(.largeTitle.weight(.bold))
+  }
 }
 
 extension View {
@@ -27,39 +27,41 @@ extension View {
 
 struct FlagImage: View {
   var country: Country
-  
+
   var body: some View {
     Image(country.code.lowercased())
       .resizable()
-      .aspectRatio( contentMode: .fit)
-      .shadow(radius: 4)
+      .aspectRatio(contentMode: .fit)
+      .shadow(radius: 6)
       .frame(width: 400, height: 150)
-      .clipShape(RoundedRectangle(cornerRadius: 5))
   }
 }
 
 struct ContentView: View {
   @State var countries: [Country] = []
   @State var correctAnswer = -1
-  
-  @State private var showingScore = false
+
+  @State private var score = 0
   @State private var scoreTitle = ""
-  
+
   @State private var showingAlert = false
-  
+
   var body: some View {
     ZStack {
       RadialGradient(stops: [
         .init(color: Color(red: 0.76, green: 0.1, blue: 0.1), location: 0.2),
         .init(color: Color(red: 0.2, green: 0.2, blue: 0.2), location: 0.2),
       ], center: .top, startRadius: 200, endRadius: 400)
-      .ignoresSafeArea()
-      if correctAnswer > 0 {
-        VStack{
+        .ignoresSafeArea()
+      if correctAnswer >= 0 {
+        VStack {
           Text("Guess the Flag").titleText()
             .foregroundColor(.white)
             .padding(.bottom)
-          Text("Score: ???")
+          Text("Score: \(score)")
+            .foregroundColor(.white)
+            .font(.title.bold())
+          Text(scoreTitle)
             .foregroundColor(.white)
             .font(.title.bold())
           Spacer()
@@ -69,46 +71,43 @@ struct ContentView: View {
               Text(countries[correctAnswer].name).foregroundColor(.white).font(.largeTitle.weight(.semibold))
             }
             ForEach(0 ..< 3) { number in
-              Button {
-                flagTapped(number)
-              } label: {
-                FlagImage(country: countries[number])
-
+              if countries.count > number + 1 {
+                Button {
+                  flagTapped(number)
+                } label: {
+                  FlagImage(country: countries[number])
+                }
               }
             }
           }
           Spacer()
         }.padding()
       } else {
-        VStack{
+        VStack {
           Text("Loading")
         }
       }
-      
     }
     .onAppear(perform: load)
-    .alert(scoreTitle, isPresented: $showingScore) {
-      Button("Continue", action: askQuestion)
-    } message: {
-      Text("Your score is ???")
-    }
   }
-  
+
   func flagTapped(_ number: Int) {
     if number == correctAnswer {
       scoreTitle = "Correct"
+      score += 1
     } else {
       scoreTitle = "Wrong"
     }
+    countries.remove(at: number)
 
-    showingScore = true
+    askQuestion()
   }
-  
+
   func askQuestion() {
     countries.shuffle()
-    correctAnswer = Int.random(in: 0...3)
+    correctAnswer = Int.random(in: 0 ... 2)
   }
-  
+
   func load() {
     guard let url = Bundle.main.url(forResource: "countries", withExtension: "csv") else { return }
     guard let contents = try? String(contentsOf: url) else { return }
@@ -118,7 +117,7 @@ struct ContentView: View {
         countries.append(Country(name: data[1], code: data[0]))
       }
     }
-    correctAnswer = Int.random(in: 0...3)
+    askQuestion()
   }
 }
 
