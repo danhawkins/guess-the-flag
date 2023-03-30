@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		308DE83C29D5EEEE001D66E7 /* countries.csv in Resources */ = {isa = PBXBuildFile; fileRef = 308DE83B29D5EEEE001D66E7 /* countries.csv */; };
+		308DE83E29D5EEFD001D66E7 /* countries.csv in Resources */ = {isa = PBXBuildFile; fileRef = 308DE83D29D5EEFD001D66E7 /* countries.csv */; };
 		30BCC49328DE84260048FE1F /* GuessTheFlagApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BCC49228DE84260048FE1F /* GuessTheFlagApp.swift */; };
 		30BCC49528DE84260048FE1F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BCC49428DE84260048FE1F /* ContentView.swift */; };
 		30BCC49728DE84270048FE1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30BCC49628DE84270048FE1F /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		308DE83B29D5EEEE001D66E7 /* countries.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.csv; sourceTree = "<group>"; };
+		308DE83D29D5EEFD001D66E7 /* countries.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.csv; sourceTree = "<group>"; };
 		30BCC48F28DE84260048FE1F /* GuessTheFlag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuessTheFlag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BCC49228DE84260048FE1F /* GuessTheFlagApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessTheFlagApp.swift; sourceTree = "<group>"; };
 		30BCC49428DE84260048FE1F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +55,7 @@
 		30BCC49128DE84260048FE1F /* GuessTheFlag */ = {
 			isa = PBXGroup;
 			children = (
+				308DE83D29D5EEFD001D66E7 /* countries.csv */,
 				30BCC49228DE84260048FE1F /* GuessTheFlagApp.swift */,
 				30BCC49428DE84260048FE1F /* ContentView.swift */,
 				30BCC49628DE84270048FE1F /* Assets.xcassets */,
@@ -62,6 +67,7 @@
 		30BCC49828DE84270048FE1F /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				308DE83B29D5EEEE001D66E7 /* countries.csv */,
 				30BCC49928DE84270048FE1F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -125,8 +131,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308DE83C29D5EEEE001D66E7 /* countries.csv in Resources */,
 				30BCC49A28DE84270048FE1F /* Preview Assets.xcassets in Resources */,
 				30BCC49728DE84270048FE1F /* Assets.xcassets in Resources */,
+				308DE83E29D5EEFD001D66E7 /* countries.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
