@@ -7,6 +7,30 @@
 
 import SwiftUI
 
+struct TitleModifier : ViewModifier {
+  func body(content: Content) -> some View {
+          content
+            .font(.largeTitle.weight(.bold))
+      }
+}
+
+extension View {
+  func titleText() -> some View {
+    modifier(TitleModifier())
+  }
+}
+
+struct FlagImage: View {
+  var country: String
+  
+  var body: some View {
+    Image(country)
+      .renderingMode(.original)
+      .shadow(radius: 4)
+      .clipShape(RoundedRectangle(cornerRadius: 5))
+  }
+}
+
 struct ContentView: View {
   @State var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"]
   @State var correctAnswer = Int.random(in: 0...2)
@@ -25,8 +49,8 @@ struct ContentView: View {
           .ignoresSafeArea()
       VStack{
         Spacer()
-        Text("Guess the Flag")
-          .font(.largeTitle.weight(.bold))
+        Text("Guess the Flag").titleText()
+         
           .foregroundColor(.white)
         Spacer()
         Spacer()
@@ -43,8 +67,7 @@ struct ContentView: View {
             Button {
               flagTapped(number)
             } label: {
-              Image(countries[number])
-                .renderingMode(.original).shadow(radius: 5).clipShape(RoundedRectangle(cornerRadius: 5))
+              FlagImage(country: countries[number])
             }
           }
         }
