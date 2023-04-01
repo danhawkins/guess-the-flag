@@ -180,12 +180,12 @@ PL, Poland
 PM, Saint Pierre and Miquelon
 PN, Pitcairn
 PR, Puerto Rico
-PS, Palestine, State of
+PS, Palestine
 PT, Portugal
 PW, Palau
 PY, Paraguay
 QA, Qatar
-RE, Réunion
+RE, Reunion
 RO, Romania
 RS, Serbia
 RU, Russian Federation
@@ -225,11 +225,10 @@ TO, Tonga
 TR, Türkiye
 TT, Trinidad and Tobago
 TV, Tuvalu
-TW, Taiwan, Province of China
-TZ, Tanzania, United Republic of
+TW, Taiwan
+TZ, Tanzania
 UA, Ukraine
 UG, Uganda
-UM, United States Minor Outlying Islands
 US, United States of America
 UY, Uruguay
 UZ, Uzbekistan
@@ -239,6 +238,7 @@ VE, Venezuela
 VG, Virgin Islands (British)
 VI, Virgin Islands (U.S)
 VN, Vietnam
+VAT, Vatican City
 VU, Vanuatu
 WF, Wallis and Futuna
 WS, Samoa
@@ -247,3 +247,7 @@ YT, Mayotte
 ZA, South Africa
 ZM, Zambia
 ZW, Zimbabwe
+GBNIR, Northern Ireland
+GBSCT, Scotland
+GBENG, England
+GBWLS, Wales

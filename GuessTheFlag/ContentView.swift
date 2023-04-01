@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct Country {
   var name: String
@@ -33,7 +34,9 @@ struct FlagImage: View {
       .resizable()
       .aspectRatio(contentMode: .fit)
       .shadow(radius: 6)
+      .cornerRadius(3)
       .frame(width: 280, height: 120)
+      
   }
 }
 
@@ -43,14 +46,17 @@ struct ContentView: View {
 
   @State private var score = 0
   @State private var scoreTitle = ""
-
+  @State private var showImages = false
   @State private var showingAlert = false
+  
+  let player = try! AVAudioPlayer(data: NSDataAsset(name: "success")!.data)
+  let generator = UINotificationFeedbackGenerator()
 
   var body: some View {
     ZStack {
       RadialGradient(stops: [
-        .init(color: Color(red: 0.66, green: 0.1, blue: 0.1), location: 0.2),
-        .init(color: Color(red: 0.2, green: 0.2, blue: 0.2), location: 0.4),
+        .init(color: Color(red: 0.46, green: 0.1, blue: 0.1), location: 0.2),
+        .init(color: Color(red: 0.4, green: 0.2, blue: 0.2), location: 0.4),
       ], center: .top, startRadius: 200, endRadius: 900)
       if correctAnswer >= 0 {
         VStack {
@@ -63,21 +69,30 @@ struct ContentView: View {
           Text(scoreTitle)
             .foregroundColor(.white)
             .font(.title.bold())
-          Spacer()
-          VStack(spacing: 15) {
+          VStack(spacing: 25) {
             VStack {
-              Text("Tap the flag of").foregroundColor(.secondary).font(.subheadline.weight(.heavy))
-              Text(countries[correctAnswer].name).foregroundColor(.white).font(.largeTitle.weight(.semibold))
+              Text("Tap the flag of")
+                .foregroundColor(.white)
+                .font(.subheadline.weight(.heavy))
+              
+              Text(countries[correctAnswer].name)
+                .foregroundColor(.white)
+                .font(.largeTitle.weight(.semibold))
+                .animation(.none)
             }
-            ForEach(0 ..< 3) { number in
-              if countries.count > number + 1 {
-                Button {
-                  flagTapped(number)
-                } label: {
-                  FlagImage(country: countries[number])
+            VStack(spacing: 25){
+              ForEach(0 ..< 3) { number in
+                if countries.count > number + 1 {
+                  Button {
+                    flagTapped(number)
+                  } label: {
+                    FlagImage(country: countries[number])
+                     .transition(.slide)
+                  }
                 }
               }
             }
+            .offset(y: showImages ? 0 : 800)
           }
           Spacer()
         }.padding()
@@ -91,10 +106,15 @@ struct ContentView: View {
   }
 
   func flagTapped(_ number: Int) {
+    generator.prepare()
+
     if number == correctAnswer {
+      player.play()
       scoreTitle = "Correct"
+      generator.notificationOccurred(.success)
       score += 1
     } else {
+      generator.notificationOccurred(.error)
       scoreTitle = "Wrong"
     }
     countries.remove(at: number)
@@ -103,8 +123,13 @@ struct ContentView: View {
   }
 
   func askQuestion() {
-    countries.shuffle()
-    correctAnswer = Int.random(in: 0 ... 2)
+    showImages = false
+
+    withAnimation(.linear(duration: 0.2)){
+      countries.shuffle()
+      correctAnswer = Int.random(in: 0 ... 2)
+      showImages = true
+    }
   }
 
   func load() {
